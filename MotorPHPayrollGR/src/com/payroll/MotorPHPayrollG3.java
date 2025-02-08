@@ -24,7 +24,7 @@ public class MotorPHPayrollG3 {
         EMPNAME = "Noah Eason Gray";
         EMPDOB = "2001-05-15";
         workedHoursWeekly = 80;
-        dailySalary = 117.19;
+        dailySalary = 117.56;
 
         //Calculation of Gross Income
         grossIncome = (dailySalary * workedHoursWeekly);
