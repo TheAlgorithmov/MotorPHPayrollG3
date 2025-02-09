@@ -1,69 +1,105 @@
 package com.payroll;
 
-import java.util.TreeMap; // This is imported to integrate Treemap in Java
-import java.util.NavigableMap; // This is imported to be able to search the nearest values in a TreeMap
+import java.util.TreeMap;
+import java.util.NavigableMap;
 
 public class MotorPHPayrollG3 {
     public static void main(String[] args) {
-        // Declaring variables
-        String EMPID;
-        String EMPNAME;
-        String EMPDOB;
-        int workedHoursWeekly;
-        double dailySalary;
-        double govtSSS;
-        double govtPhilHealth;
-        double govtHDMF;
-        double govtBirTax;
-        double combinedGovt;
-        double grossIncome;
-        double netPay;
+        // ------------------------------------------------------------------------------------
+        // 🏢 EMPLOYEE & PAYROLL DETAILS
+        // ------------------------------------------------------------------------------------
+        String EMPID = "7819201";
+        String EMPNAME = "Noah Eason Gray";
+        String EMPDOB = "2001-05-15";
 
-        // Assigning values
-        EMPID = "7819201";
-        EMPNAME = "Noah Eason Gray";
-        EMPDOB = "2001-05-15";
-        workedHoursWeekly = 80;
-        dailySalary = 117.56;
+        int workedHoursWeekly = 40; // Standard DOLE work week (40 hrs)
+        double hourlyRate = 117.56; // Already correct hourly rate
+        double dailySalary = hourlyRate * 8; // Daily salary for an 8-hour workday
 
-        // Work schedule for 10 days
-        int biWeeklyWorkDays = 10;
-        int[] workTypes = {1, 1, 3, 1, 1, 4, 1, 1, 5, 1}; // 1=Regular, 3=Special Holiday, 4=Regular Holiday, 5=Rest+Holiday
-        int[] overtimeHoursPerDay = {2, 1, 0, 3, 0, 4, 2, 1, 0, 2}; // OT per day
+        // Work schedule (Weekly)
+        int weeklyWorkDays = 5;
+        int[] workTypes = {1, 3, 1, 4, 5}; // Work Type per day
+        int[] overtimeHoursPerDay = {2, 0, 3, 4, 2}; // Overtime in hours
+        int[] unpaidTimePerDay = {0, 10, 0, 15, 0}; // Late minutes
 
-        // Calculate Gross Income dynamically
-        grossIncome = 0;
-        for (int i = 0; i < biWeeklyWorkDays; i++) {
+        // ------------------------------------------------------------------------------------
+        // 💰 WEEKLY INCOME, OVERTIME, AND UNPAID DEDUCTIONS
+        // ------------------------------------------------------------------------------------
+        double grossIncome = 0;
+        double totalOvertimePay = 0;
+        double totalUnpaidDeductions = 0;
+
+        // Overtime breakdown
+        double regularOT = 0;
+        double specialHolidayOT = 0;
+        double regularHolidayOT = 0;
+        double restHolidayOT = 0;
+
+        // Store formatted breakdown output for printing later
+        StringBuilder breakdownOutput = new StringBuilder();
+        breakdownOutput.append("\n---------------- Overtime & Unpaid Work Hour Deductions Breakdown ----------------\n");
+        breakdownOutput.append("Day | Work Type         | OT Hours | OT Rate | OT Pay      | Late Minutes | Late Deduction\n");
+        breakdownOutput.append("----------------------------------------------------------------------------------------\n");
+
+        for (int i = 0; i < weeklyWorkDays; i++) {
             int workType = workTypes[i];
             int overtimeHours = overtimeHoursPerDay[i];
-            double dailyIncome = dailySalary * 8;
-            double dailyOvertimePay;
+            int unpaidMinutes = unpaidTimePerDay[i];
 
-            // Apply holiday pay rules
-            if (workType == 4) { // Regular Holiday
-                dailyIncome = (8 * dailySalary) * 2;
-            } else if (workType == 3) { // Special Holiday
-                dailyIncome *= 1.30;
+            double dailyIncome = dailySalary;
+            double dailyOvertimePay = 0;
+            double dailyUnpaidDeduction = (hourlyRate / 60) * unpaidMinutes; // Deduct unpaid time
+
+            // Apply DOLE OT & holiday pay rules
+            double overtimeRate;
+            String workTypeName;
+
+            switch (workType) {
+                case 3: // Special Holiday (130%)
+                    dailyIncome *= 1.30;
+                    overtimeRate = 1.69;
+                    workTypeName = "Special Holiday";
+                    specialHolidayOT += overtimeHours * overtimeRate * hourlyRate;
+                    break;
+                case 4: // Regular Holiday (200%)
+                    dailyIncome *= 2;
+                    overtimeRate = 2.0;
+                    workTypeName = "Regular Holiday";
+                    regularHolidayOT += overtimeHours * overtimeRate * hourlyRate;
+                    break;
+                case 5: // Rest + Holiday (260%)
+                    dailyIncome *= 2.6;
+                    overtimeRate = 2.6;
+                    workTypeName = "Rest + Holiday";
+                    restHolidayOT += overtimeHours * overtimeRate * hourlyRate;
+                    break;
+                default: // Regular Workday
+                    overtimeRate = 1.25;
+                    workTypeName = "Regular Workday";
+                    regularOT += overtimeHours * overtimeRate * hourlyRate;
+                    break;
             }
 
-            // Determine overtime rate
-            double dailyOvertimeRate; // Default regular day OT
-            dailyOvertimeRate = switch (workType) {
-                case 2 -> 1.3;
-                case 3 -> (overtimeHours > 8) ? 1.69 : 1.3;
-                case 4 -> (overtimeHours > 8) ? 2.6 : 2.0;
-                case 5 -> (overtimeHours > 8) ? 3.38 : 2.6;
-                default -> 1.25;
-            }; // Default rate for regular workdays
-            // Calculate OT pay for the day
-            dailyOvertimePay = dailySalary * dailyOvertimeRate * overtimeHours;
+            dailyOvertimePay = overtimeHours * overtimeRate * hourlyRate;
 
-            // Add daily pay and OT pay to total gross income
-            grossIncome += (dailyIncome + dailyOvertimePay);
+            // Accumulate totals
+            totalOvertimePay += dailyOvertimePay;
+            totalUnpaidDeductions += dailyUnpaidDeduction;
+            grossIncome += (dailyIncome + dailyOvertimePay - dailyUnpaidDeduction);
+
+            // Append formatted breakdown output
+            breakdownOutput.append(String.format(" %2d  | %-17s | %8d | %.2f   | PHP %8.2f | %12d | PHP %8.2f%n",
+                    i + 1, workTypeName, overtimeHours, overtimeRate, dailyOvertimePay, unpaidMinutes, dailyUnpaidDeduction));
         }
 
-        // This will be the computation for SSS Government Benefit Deduction - Effective Jan 2025
-        NavigableMap<Double, double[]> sssTable = new TreeMap<>(); // Treemap was utilized instead of hashmap as it is efficient in searching for the closest match for our grossPay
+        breakdownOutput.append("----------------------------------------------------------------------------------------\n");
+
+        // ------------------------------------------------------------------------------------
+        // 📌 GOVERNMENT DEDUCTIONS (SSS, PhilHealth, Pag-IBIG, BIR Tax)
+        // ------------------------------------------------------------------------------------
+
+        // 🔹 SSS CONTRIBUTION (Jan 2025 Table)
+        NavigableMap<Double, double[]> sssTable = new TreeMap<>();
         sssTable.put(5250.0, new double[]{560, 275});
         sssTable.put(5750.0, new double[]{610, 300});
         sssTable.put(6250.0, new double[]{660, 325});
@@ -124,62 +160,58 @@ public class MotorPHPayrollG3 {
         sssTable.put(33750.0, new double[]{3430, 1700});
         sssTable.put(34250.0, new double[]{3480, 1725});
         sssTable.put(34750.0, new double[]{3530, 1750});
-
-        // Get the correct SSS deduction
         double[] sssContribution = sssTable.floorEntry(grossIncome).getValue();
-        govtSSS = sssContribution[1]; // Only employee share is deducted
+        double govtSSS = sssContribution[1]; // Employee Share
+        double employerSSS = sssContribution[0] - govtSSS; // Employer Share
 
-        // HDMF (Pag-IBIG) Computation
-        govtHDMF = 0.00;
-        if (grossIncome >= 1000 && grossIncome <= 1500) {
-            govtHDMF = 0.01 * grossIncome;
-        } else if (grossIncome > 1500) {
-            govtHDMF = 0.02 * grossIncome;
-        }
+        // 🔹 PAG-IBIG CONTRIBUTION (Deducted Monthly)
+        double govtHDMF = Math.min(200, 0.02 * grossIncome);
+        double employerHDMF = govtHDMF;
 
-        // PhilHealth Computation
-        govtPhilHealth = 0.00;
-        if (grossIncome <= 10000) {
-            govtPhilHealth = 0.03 * grossIncome;
-        } else if (grossIncome > 10000 && grossIncome <= 59999.99) {
-            govtPhilHealth = 0.03 * grossIncome;
-        } else if (grossIncome >= 60000.00) {
-            govtPhilHealth = 0.03 * grossIncome;
-        }
+        // 🔹 PHILHEALTH CONTRIBUTION (Deducted Monthly)
+        double govtPhilHealth = (grossIncome <= 10000) ? 500 : Math.min(5000, 0.05 * grossIncome);
 
-        // BIR Withholding Tax Computation
-        govtBirTax = 0;
+        // 🔹 BIR WITHHOLDING TAX (DOLE Rates)
+        double govtBirTax = 0;
         if (grossIncome > 20832 && grossIncome <= 33333) {
             govtBirTax = 0.20 * (grossIncome - 20833);
         } else if (grossIncome > 33333 && grossIncome <= 66667) {
             govtBirTax = (0.25 * (grossIncome - 33333)) + 2500;
-        } else if (grossIncome > 66667 && grossIncome <= 166667) {
-            govtBirTax = (0.30 * (grossIncome - 66667)) + 10833;
-        } else if (grossIncome > 166667 && grossIncome <= 666667) {
-            govtBirTax = (0.32 * (grossIncome - 166667)) + 40833.33;
-        } else if (grossIncome > 666667) {
-            govtBirTax = (0.35 * (grossIncome - 666667)) + 200833.33;
         }
 
-        // Compute Net Pay
-        combinedGovt = (govtSSS + govtHDMF + govtPhilHealth + govtBirTax);
-        netPay = (grossIncome - combinedGovt);
+        // ------------------------------------------------------------------------------------
+        // 🏁 NET PAY COMPUTATION
+        // ------------------------------------------------------------------------------------
+        double totalDeductions = govtSSS + govtHDMF + govtPhilHealth + govtBirTax + totalUnpaidDeductions;
+        double netPay = grossIncome - totalDeductions;
 
-        // Console Output
-        System.out.println("------------------------------------------------------------------------------------------------------------");
-        System.out.println(("Employee Number: " + EMPID) + " | " + ("Employee Name: " + EMPNAME) + " | " + ("Employee Date of Birth: " + EMPDOB));
-        System.out.println("------------------------------------------------------------------------------------------------------------");
-        System.out.println("Employee Timesheet");
-        System.out.println("No. of Hours worked for the week: " + workedHoursWeekly + " hours");
-        System.out.println("Government Deductions: PHP " + String.format("%.2f", combinedGovt));
-        System.out.println("Gross Bi-Weekly Income: PHP " + String.format("%.2f", grossIncome));
-        System.out.println("Net Bi-Weekly Income: PHP " + String.format("%.2f", netPay));
-        System.out.println("------------------------------------------------------------------------------------------------------------");
-        System.out.println("Breakdown of Government Deductions");
-        System.out.println("SSS Deductions: PHP " + String.format("%.2f", govtSSS));
-        System.out.println("HDMF Deductions: PHP " + String.format("%.2f", govtHDMF));
-        System.out.println("PhilHealth Deductions: PHP " + String.format("%.2f", govtPhilHealth));
-        System.out.println("BIR Tax Deductions: PHP " + String.format("%.2f", govtBirTax));
-        System.out.println("------------------------------------------------------------------------------------------------------------");
+        // ------------------------------------------------------------------------------------
+        // 📢 FINAL PAYROLL REPORT (WEEKLY) - PRINT LAST
+        // ------------------------------------------------------------------------------------
+        System.out.println("---------------- FINAL PAYROLL REPORT (WEEKLY) ----------------");
+        System.out.println(" Employee Number: " + EMPID + " | Name: " + EMPNAME + " | DOB: " + EMPDOB);
+        System.out.println("--------------------------------------------------------------");
+        System.out.println(" Worked Hours (Per Week): " + workedHoursWeekly + " hours");
+        System.out.println(" Gross Weekly Income: PHP " + String.format("%.2f", grossIncome));
+        System.out.println(" Net Weekly Income: PHP " + String.format("%.2f", netPay));
+        System.out.println("--------------------------------------------------------------");
+
+        // Print Overtime & Unpaid Work Hour Deductions Breakdown
+        System.out.println(breakdownOutput.toString());
+
+        System.out.println(" Overtime Pay Earned: PHP " + String.format("%.2f", totalOvertimePay));
+        System.out.println(" - Regular Day OT: PHP " + String.format("%.2f", regularOT));
+        System.out.println(" - Special Holiday OT: PHP " + String.format("%.2f", specialHolidayOT));
+        System.out.println(" - Regular Holiday OT: PHP " + String.format("%.2f", regularHolidayOT));
+        System.out.println(" - Rest Day + Holiday OT: PHP " + String.format("%.2f", restHolidayOT));
+        System.out.println("--------------------------------------------------------------");
+        System.out.println(" Unpaid Work Hour Deductions: PHP " + String.format("%.2f", totalUnpaidDeductions));
+        System.out.println("--------------------------------------------------------------");
+        System.out.println(" Government Deductions:");
+        System.out.println(" - SSS (Employee): PHP " + String.format("%.2f", govtSSS) + " | (Employer): PHP " + String.format("%.2f", employerSSS));
+        System.out.println(" - HDMF (Employee): PHP " + String.format("%.2f", govtHDMF) + " | (Employer): PHP " + String.format("%.2f", employerHDMF));
+        System.out.println(" - PhilHealth: PHP " + String.format("%.2f", govtPhilHealth));
+        System.out.println(" - BIR Tax: PHP " + String.format("%.2f", govtBirTax));
+        System.out.println("--------------------------------------------------------------");
     }
 }
