@@ -35,7 +35,7 @@ public class MotorPHPayrollG3 {
         // Below will be the computations of all the deductions such as SSS, Philhealth, HDMF, and BIR Tax.
         // This will be the computation for SSS Government Benefit Deduction
         NavigableMap<Double, Double> sssTable = new TreeMap<>(); // Treemap was utilized instead of hashmap as it is efficient in searching for the closest match for our grossPay
-        sssTable.put(0.0, 135.00);
+        sssTable.put(0.1, 135.00);
         sssTable.put(3250.0, 157.50);
         sssTable.put(3750.0, 180.00);
         sssTable.put(4250.0, 202.50);
