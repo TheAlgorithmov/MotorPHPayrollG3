@@ -8,9 +8,9 @@ public class MotorPHPayrollG3 {
         // ------------------------------------------------------------------------------------
         // 🏢 EMPLOYEE & PAYROLL DETAILS
         // ------------------------------------------------------------------------------------
-        String EMPID = "7819201";
-        String EMPNAME = "Noah Eason Gray";
-        String EMPDOB = "2001-05-15";
+        String EMPID = "1340";
+        String EMPNAME = "Leo Azarcon";
+        String EMPDOB = "1979-06-12";
 
         int workedHoursWeekly = 40; // Standard DOLE work week (40 hrs)
         double hourlyRate = 117.56; // Already correct hourly rate
