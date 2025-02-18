@@ -8,12 +8,12 @@ public class MotorPHPayrollG3 {
         // ------------------------------------------------------------------------------------
         // EMPLOYEE & PAYROLL DETAILS
         // ------------------------------------------------------------------------------------
-        String EMPID = "7819201";
-        String EMPNAME = "Noah Eason Gray";
-        String EMPDOB = "2001-05-15";
-
+        String EMPID = "10015";
         int workedHoursWeekly = 40; // Standard DOLE work week (40 hrs)
-        double hourlyRate = 117.56; // Already correct hourly rate
+        String EMPNAME = (EmpDB.employeeData.getOrDefault(Integer.valueOf(EMPID), "Employee not found.")); // Employee name based on EMPID, lookup using EmpDB.java class
+        String EMPDOB = (EmpDB.empBD.getOrDefault(Integer.valueOf(EMPID), "Employee not found.")); // Employee's Date of Birth based on EMPID, lookup using EmpDB.java class
+
+        double hourlyRate = EmpDB.empTime.getOrDefault(Integer.valueOf(EMPID), 0.0); // Hourly Salary based on MotorPHs salary packages
         double dailySalary = hourlyRate * 8; // Daily salary for an 8-hour workday
 
         // Work schedule (Weekly)
