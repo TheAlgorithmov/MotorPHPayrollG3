@@ -98,7 +98,7 @@ public class MotorPHPayrollG3 {
         // GOVERNMENT DEDUCTIONS (SSS, PhilHealth, Pag-IBIG, BIR Tax)
         // ------------------------------------------------------------------------------------
 
-        // SSS CONTRIBUTION (Jan 2025 Table)
+        // SSS CONTRIBUTION (Jan 2024 Table)
         NavigableMap<Double, Double> sssTable = new TreeMap<>();
         sssTable.put(3250.0, 135.00);
         sssTable.put(3750.0, 157.50);
