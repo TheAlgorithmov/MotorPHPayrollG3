@@ -11,7 +11,7 @@ public class SalaryPerDayComputation {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Input: Get the monthly salary from the user
+        // Input: Get the monthly salary from the employee
         System.out.print("Enter your monthly salary (PHP): ");
         double monthlySalary = scanner.nextDouble();
 
