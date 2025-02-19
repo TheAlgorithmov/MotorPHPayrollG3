@@ -2,9 +2,86 @@ package com.payroll;
 
 import java.util.TreeMap;
 import java.util.NavigableMap;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+
 
 public class MotorPHPayrollG3 {
     public static void main(String[] args) {
+        
+        // CSV - MotorPH Employee Data - Attendance Record
+        String file = "C:\\Users\\Miles\\Documents\\NetBeansProjects\\Miles\\MotorPHPayrollGR\\src\\com\\payroll\\MotorPH Employee Data - Attendance Record.csv";
+        BufferedReader reader = null;
+        String line = "";
+        String delimiter = ",";
+        int dateOfWork = 3;
+        int totalHrsWorked = 6;
+        int lastName = 1;
+        int firstName = 2;
+        int EmpID = 0;
+        
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Employee ID: ");
+        String searchValue = scanner.nextLine();
+        boolean firstMatchFound = false;
+        
+        // Scan First Instance of Employee Name
+        try {
+            reader = new BufferedReader(new FileReader(file));
+            while ((line = reader.readLine()) != null) {
+                if (line.contains(searchValue) && !firstMatchFound) {
+                    String[] values = line.split(delimiter);
+                    if (EmpID >=0 ) {
+                        System.out.println("Employee Name: " + values[firstName] + " " + values[lastName]);
+                        firstMatchFound = true;
+                    } else {
+                        System.out.println("Invalid Employee ID.");
+                        break;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        scanner.close();
+        
+        // Scan Attendance Record of Employee
+        try {
+            reader = new BufferedReader(new FileReader(file));
+            while ((line = reader.readLine()) != null) {
+                if (line.contains(searchValue)) {
+                    String[] values = line.split(delimiter);
+                    if (dateOfWork >= 0  && totalHrsWorked >= 0) {
+                        System.out.println("Date: " + values[dateOfWork] + " | " + "Total Hours Worked: " + values[totalHrsWorked] + " hours");
+                    } else {
+                        System.out.println("Invalid Attendance Record");
+                        break;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        scanner.close();
+        
         // ------------------------------------------------------------------------------------
         // 🏢 EMPLOYEE & PAYROLL DETAILS
         // ------------------------------------------------------------------------------------
