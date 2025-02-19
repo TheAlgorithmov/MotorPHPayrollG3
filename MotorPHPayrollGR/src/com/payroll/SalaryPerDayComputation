@@ -1,0 +1,33 @@
+import java.util.Scanner;
+
+public class SalaryPerDayComputation {
+
+    // Method to compute daily salary based on monthly salary and number of workdays
+    public static double computeDailySalary(double monthlySalary, int workdaysInMonth) {
+        // Calculate daily salary by dividing monthly salary by number of workdays
+        return monthlySalary / workdaysInMonth;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input: Get the monthly salary from the user
+        System.out.print("Enter your monthly salary (PHP): ");
+        double monthlySalary = scanner.nextDouble();
+
+        // Input: Get the number of workdays in a month (default is 22)
+        System.out.print("Enter the number of workdays in the month (default is 22): ");
+        int workdaysInMonth = scanner.nextInt();
+
+        // If user doesn't enter a number for workdays, default to 22
+        if (workdaysInMonth == 0) {
+            workdaysInMonth = 22;
+        }
+
+        // Compute and display the daily salary
+        double dailySalary = computeDailySalary(monthlySalary, workdaysInMonth);
+        System.out.println("Your daily salary is: PHP " + dailySalary);
+
+        scanner.close();
+    }
+}
