@@ -1,0 +1,38 @@
+public class PagIbigContribution {
+    
+    // Method to calculate Pag-IBIG contribution
+    public static double calculateContribution(double monthlySalary) {
+        double employeeContribution = 0;
+        double employerContribution = 0;
+
+        // Case 1: Salary between PHP 1,500.01 and PHP 5,000.00
+        if (monthlySalary >= 1500.01 && monthlySalary <= 5000.00) {
+            employeeContribution = 100;
+            employerContribution = 100;
+        }
+        // Case 2: Salary above PHP 5,000.00 but not exceeding PHP 100,000
+        else if (monthlySalary > 5000.00 && monthlySalary <= 100000.00) {
+            employeeContribution = monthlySalary * 0.02; // 2% of salary
+            employerContribution = monthlySalary * 0.02; // 2% of salary
+        }
+        // Case 3: Salary above PHP 100,000
+        else if (monthlySalary > 100000.00) {
+            employeeContribution = 2000; // Cap at 2% of PHP 100,000
+            employerContribution = 2000; // Cap at 2% of PHP 100,000
+        }
+
+        // Printing out the details
+        System.out.println("Employee Contribution: PHP " + employeeContribution);
+        System.out.println("Employer Contribution: PHP " + employerContribution);
+        System.out.println("Total Contribution: PHP " + (employeeContribution + employerContribution));
+        
+        return employeeContribution + employerContribution;
+    }
+
+    public static void main(String[] args) {
+        // Test with different monthly salaries
+        double salary = 12000.00; // Example salary
+        System.out.println("For a salary of PHP " + salary + ":");
+        calculateContribution(salary);
+    }
+}

@@ -1,0 +1,46 @@
+import java.util.Scanner;
+
+public class PhilHealthMonthlyComputation {
+
+    // Method to compute PhilHealth contribution
+    public static void computePhilHealthContribution(double monthlySalary) {
+        // Set the minimum and maximum salary bases for contribution
+        final double MIN_SALARY_BASE = 10000.0;
+        final double MAX_SALARY_BASE = 80000.0;
+        final double RATE = 0.04; // 4% contribution rate (employee + employer)
+
+        // Apply minimum and maximum salary caps
+        if (monthlySalary < MIN_SALARY_BASE) {
+            monthlySalary = MIN_SALARY_BASE; // Minimum salary base
+        } else if (monthlySalary > MAX_SALARY_BASE) {
+            monthlySalary = MAX_SALARY_BASE; // Maximum salary base
+        }
+
+        // Compute total PhilHealth contribution (4% of the monthly salary)
+        double totalContribution = monthlySalary * RATE;
+
+        // Employee's share is 2% of the salary
+        double employeeShare = totalContribution / 2;
+
+        // Employer's share is 2% of the salary
+        double employerShare = totalContribution / 2;
+
+        // Output the result
+        System.out.println("Employee's Share: PHP " + employeeShare);
+        System.out.println("Employer's Share: PHP " + employerShare);
+        System.out.println("Total PhilHealth Contribution: PHP " + totalContribution);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input: Get the monthly salary from the user
+        System.out.print("Enter the monthly salary (PHP): ");
+        double monthlySalary = scanner.nextDouble();
+
+        // Compute and display PhilHealth contribution
+        computePhilHealthContribution(monthlySalary);
+
+        scanner.close();
+    }
+}

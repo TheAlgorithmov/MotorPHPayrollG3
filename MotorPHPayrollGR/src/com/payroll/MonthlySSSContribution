@@ -1,0 +1,74 @@
+import java.util.Scanner;
+
+public class SSSMonthlyComputation {
+
+    // Method to compute SSS contribution based on monthly salary
+    public static void computeSSSContribution(double monthlySalary) {
+        double employeeShare = 0;
+        double employerShare = 0;
+
+        // Determine the salary bracket and compute the employee and employer share
+        if (monthlySalary >= 1000 && monthlySalary <= 1249.99) {
+            employeeShare = 120;
+            employerShare = 180;
+        } else if (monthlySalary >= 1250 && monthlySalary <= 1749.99) {
+            employeeShare = 135;
+            employerShare = 202.50;
+        } else if (monthlySalary >= 1750 && monthlySalary <= 2249.99) {
+            employeeShare = 150;
+            employerShare = 225;
+        } else if (monthlySalary >= 2250 && monthlySalary <= 2749.99) {
+            employeeShare = 180;
+            employerShare = 270;
+        } else if (monthlySalary >= 2750 && monthlySalary <= 3249.99) {
+            employeeShare = 195;
+            employerShare = 292.50;
+        } else if (monthlySalary >= 3250 && monthlySalary <= 3749.99) {
+            employeeShare = 210;
+            employerShare = 315;
+        } else if (monthlySalary >= 3750 && monthlySalary <= 4249.99) {
+            employeeShare = 225;
+            employerShare = 337.50;
+        } else if (monthlySalary >= 4250 && monthlySalary <= 4749.99) {
+            employeeShare = 240;
+            employerShare = 360;
+        } else if (monthlySalary >= 4750 && monthlySalary <= 5249.99) {
+            employeeShare = 255;
+            employerShare = 382.50;
+        } else if (monthlySalary >= 5250 && monthlySalary <= 5749.99) {
+            employeeShare = 270;
+            employerShare = 405;
+        } else if (monthlySalary >= 5750 && monthlySalary <= 6249.99) {
+            employeeShare = 285;
+            employerShare = 427.50;
+        } else if (monthlySalary >= 6250 && monthlySalary <= 6749.99) {
+            employeeShare = 300;
+            employerShare = 450;
+        } else {
+            // Handle higher salary brackets (beyond the defined brackets)
+            employeeShare = 300;
+            employerShare = 450;
+        }
+
+        // Calculate total SSS contribution
+        double totalContribution = employeeShare + employerShare;
+
+        // Output the result
+        System.out.println("Employee's Share: PHP " + employeeShare);
+        System.out.println("Employer's Share: PHP " + employerShare);
+        System.out.println("Total SSS Contribution: PHP " + totalContribution);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input: Get the monthly salary from the user
+        System.out.print("Enter the monthly salary (PHP): ");
+        double monthlySalary = scanner.nextDouble();
+
+        // Compute and display SSS contribution
+        computeSSSContribution(monthlySalary);
+
+        scanner.close();
+    }
+}

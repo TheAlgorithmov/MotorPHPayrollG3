@@ -1,0 +1,43 @@
+import java.util.Scanner;
+
+public class PhilippineMonthlyIncomeTaxCalculator {
+
+    // Function to compute monthly tax based on the income
+    public static double computeMonthlyTax(double monthlyIncome) {
+        double annualIncome = monthlyIncome * 12;
+        double taxDue = 0;
+
+        if (annualIncome <= 250000) {
+            taxDue = 0;
+        } else if (annualIncome <= 400000) {
+            taxDue = (annualIncome - 250000) * 0.20;
+        } else if (annualIncome <= 800000) {
+            taxDue = 30000 + (annualIncome - 400000) * 0.25; // 30,000 tax from previous range
+        } else if (annualIncome <= 2000000) {
+            taxDue = 130000 + (annualIncome - 800000) * 0.30; // 130,000 tax from previous ranges
+        } else if (annualIncome <= 8000000) {
+            taxDue = 530000 + (annualIncome - 2000000) * 0.32; // 530,000 tax from previous ranges
+        } else {
+            taxDue = 2300000 + (annualIncome - 8000000) * 0.35; // 2,300,000 tax from previous ranges
+        }
+
+        // Return monthly tax by dividing the total annual tax by 12
+        return taxDue / 12;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input: Get the monthly income from user
+        System.out.print("Enter your monthly income (PHP): ");
+        double monthlyIncome = scanner.nextDouble();
+
+        // Calculate the monthly tax based on the income
+        double monthlyTax = computeMonthlyTax(monthlyIncome);
+
+        // Output: Display the monthly tax due
+        System.out.println("Your computed monthly tax due is: PHP " + monthlyTax);
+
+        scanner.close();
+    }
+}
