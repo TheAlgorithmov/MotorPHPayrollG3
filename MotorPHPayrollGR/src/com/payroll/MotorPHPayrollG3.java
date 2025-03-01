@@ -99,70 +99,70 @@ public class MotorPHPayrollG3 {
         // ------------------------------------------------------------------------------------
 
         // 🔹 SSS CONTRIBUTION (Jan 2025 Table)
-        NavigableMap<Double, double[]> sssTable = new TreeMap<>();
-        sssTable.put(5250.0, new double[]{560, 275});
-        sssTable.put(5750.0, new double[]{610, 300});
-        sssTable.put(6250.0, new double[]{660, 325});
-        sssTable.put(6750.0, new double[]{710, 350});
-        sssTable.put(7250.0, new double[]{760, 375});
-        sssTable.put(7750.0, new double[]{810, 400});
-        sssTable.put(8250.0, new double[]{860, 425});
-        sssTable.put(8750.0, new double[]{910, 450});
-        sssTable.put(9250.0, new double[]{960, 475});
-        sssTable.put(9750.0, new double[]{1010, 500});
-        sssTable.put(10250.0, new double[]{1060, 525});
-        sssTable.put(10750.0, new double[]{1110, 550});
-        sssTable.put(11250.0, new double[]{1160, 575});
-        sssTable.put(11750.0, new double[]{1210, 600});
-        sssTable.put(12250.0, new double[]{1260, 625});
-        sssTable.put(12750.0, new double[]{1310, 650});
-        sssTable.put(13250.0, new double[]{1360, 675});
-        sssTable.put(13750.0, new double[]{1410, 700});
-        sssTable.put(14250.0, new double[]{1460, 725});
-        sssTable.put(14750.0, new double[]{1530, 750});
-        sssTable.put(15250.0, new double[]{1580, 775});
-        sssTable.put(15750.0, new double[]{1630, 800});
-        sssTable.put(16250.0, new double[]{1680, 825});
-        sssTable.put(16750.0, new double[]{1730, 850});
-        sssTable.put(17250.0, new double[]{1780, 875});
-        sssTable.put(17750.0, new double[]{1830, 900});
-        sssTable.put(18250.0, new double[]{1880, 925});
-        sssTable.put(18750.0, new double[]{1930, 950});
-        sssTable.put(19250.0, new double[]{1980, 975});
-        sssTable.put(19750.0, new double[]{2030, 1000});
-        sssTable.put(20250.0, new double[]{2080, 1025});
-        sssTable.put(20750.0, new double[]{2130, 1050});
-        sssTable.put(21250.0, new double[]{2180, 1075});
-        sssTable.put(21750.0, new double[]{2230, 1100});
-        sssTable.put(22250.0, new double[]{2280, 1125});
-        sssTable.put(22750.0, new double[]{2330, 1150});
-        sssTable.put(23250.0, new double[]{2380, 1175});
-        sssTable.put(23750.0, new double[]{2430, 1200});
-        sssTable.put(24250.0, new double[]{2480, 1225});
-        sssTable.put(24750.0, new double[]{2530, 1250});
-        sssTable.put(25250.0, new double[]{2580, 1275});
-        sssTable.put(25750.0, new double[]{2630, 1300});
-        sssTable.put(26250.0, new double[]{2680, 1325});
-        sssTable.put(26750.0, new double[]{2730, 1350});
-        sssTable.put(27250.0, new double[]{2780, 1375});
-        sssTable.put(27750.0, new double[]{2830, 1400});
-        sssTable.put(28250.0, new double[]{2880, 1425});
-        sssTable.put(28750.0, new double[]{2930, 1450});
-        sssTable.put(29250.0, new double[]{2980, 1475});
-        sssTable.put(29750.0, new double[]{3030, 1500});
-        sssTable.put(30250.0, new double[]{3080, 1525});
-        sssTable.put(30750.0, new double[]{3130, 1550});
-        sssTable.put(31250.0, new double[]{3180, 1575});
-        sssTable.put(31750.0, new double[]{3230, 1600});
-        sssTable.put(32250.0, new double[]{3280, 1625});
-        sssTable.put(32750.0, new double[]{3330, 1650});
-        sssTable.put(33250.0, new double[]{3380, 1675});
-        sssTable.put(33750.0, new double[]{3430, 1700});
-        sssTable.put(34250.0, new double[]{3480, 1725});
-        sssTable.put(34750.0, new double[]{3530, 1750});
-        double[] sssContribution = sssTable.floorEntry(grossIncome).getValue();
-        double govtSSS = sssContribution[1]; // Employee Share
-        double employerSSS = sssContribution[0] - govtSSS; // Employer Share
+        NavigableMap<Double, float[]> sssTable = new TreeMap<>();
+        sssTable.put(5250.0, new float[]{560, 275});
+        sssTable.put(5750.0, new float[]{610, 300});
+        sssTable.put(6250.0, new float[]{660, 325});
+        sssTable.put(6750.0, new float[]{710, 350});
+        sssTable.put(7250.0, new float[]{760, 375});
+        sssTable.put(7750.0, new float[]{810, 400});
+        sssTable.put(8250.0, new float[]{860, 425});
+        sssTable.put(8750.0, new float[]{910, 450});
+        sssTable.put(9250.0, new float[]{960, 475});
+        sssTable.put(9750.0, new float[]{1010, 500});
+        sssTable.put(10250.0, new float[]{1060, 525});
+        sssTable.put(10750.0, new float[]{1110, 550});
+        sssTable.put(11250.0, new float[]{1160, 575});
+        sssTable.put(11750.0, new float[]{1210, 600});
+        sssTable.put(12250.0, new float[]{1260, 625});
+        sssTable.put(12750.0, new float[]{1310, 650});
+        sssTable.put(13250.0, new float[]{1360, 675});
+        sssTable.put(13750.0, new float[]{1410, 700});
+        sssTable.put(14250.0, new float[]{1460, 725});
+        sssTable.put(14750.0, new float[]{1530, 750});
+        sssTable.put(15250.0, new float[]{1580, 775});
+        sssTable.put(15750.0, new float[]{1630, 800});
+        sssTable.put(16250.0, new float[]{1680, 825});
+        sssTable.put(16750.0, new float[]{1730, 850});
+        sssTable.put(17250.0, new float[]{1780, 875});
+        sssTable.put(17750.0, new float[]{1830, 900});
+        sssTable.put(18250.0, new float[]{1880, 925});
+        sssTable.put(18750.0, new float[]{1930, 950});
+        sssTable.put(19250.0, new float[]{1980, 975});
+        sssTable.put(19750.0, new float[]{2030, 1000});
+        sssTable.put(20250.0, new float[]{2080, 1025});
+        sssTable.put(20750.0, new float[]{2130, 1050});
+        sssTable.put(21250.0, new float[]{2180, 1075});
+        sssTable.put(21750.0, new float[]{2230, 1100});
+        sssTable.put(22250.0, new float[]{2280, 1125});
+        sssTable.put(22750.0, new float[]{2330, 1150});
+        sssTable.put(23250.0, new float[]{2380, 1175});
+        sssTable.put(23750.0, new float[]{2430, 1200});
+        sssTable.put(24250.0, new float[]{2480, 1225});
+        sssTable.put(24750.0, new float[]{2530, 1250});
+        sssTable.put(25250.0, new float[]{2580, 1275});
+        sssTable.put(25750.0, new float[]{2630, 1300});
+        sssTable.put(26250.0, new float[]{2680, 1325});
+        sssTable.put(26750.0, new float[]{2730, 1350});
+        sssTable.put(27250.0, new float[]{2780, 1375});
+        sssTable.put(27750.0, new float[]{2830, 1400});
+        sssTable.put(28250.0, new float[]{2880, 1425});
+        sssTable.put(28750.0, new float[]{2930, 1450});
+        sssTable.put(29250.0, new float[]{2980, 1475});
+        sssTable.put(29750.0, new float[]{3030, 1500});
+        sssTable.put(30250.0, new float[]{3080, 1525});
+        sssTable.put(30750.0, new float[]{3130, 1550});
+        sssTable.put(31250.0, new float[]{3180, 1575});
+        sssTable.put(31750.0, new float[]{3230, 1600});
+        sssTable.put(32250.0, new float[]{3280, 1625});
+        sssTable.put(32750.0, new float[]{3330, 1650});
+        sssTable.put(33250.0, new float[]{3380, 1675});
+        sssTable.put(33750.0, new float[]{3430, 1700});
+        sssTable.put(34250.0, new float[]{3480, 1725});
+        sssTable.put(34750.0, new float[]{3530, 1750});
+        float[] sssContribution = sssTable.floorEntry(grossIncome).getValue();
+        float govtSSS = sssContribution[1]; // Employee Share
+        float employerSSS = sssContribution[0] - govtSSS; // Employer Share
 
         // 🔹 PAG-IBIG CONTRIBUTION (Deducted Monthly)
         double govtHDMF = Math.min(200, 0.02 * grossIncome);
@@ -173,15 +173,15 @@ public class MotorPHPayrollG3 {
 
         // 🔹 BIR WITHHOLDING TAX (DOLE Rates)
         double govtBirTax = 0;
-        if (grossIncome > 20832 && grossIncome <= 33333) {
+        if (grossIncome < 20832 && grossIncome < 33333) {
             govtBirTax = 0.20 * (grossIncome - 20833);
-        } else if (grossIncome > 33333 && grossIncome <= 66667) {
+        } else if (grossIncome > 33333 && grossIncome > 66667) {
             govtBirTax = (0.25 * (grossIncome - 33333)) + 2500;
         }
 
         // ------------------------------------------------------------------------------------
         // 🏁 NET PAY COMPUTATION
-        // ------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------20832
         double totalDeductions = govtSSS + govtHDMF + govtPhilHealth + govtBirTax + totalUnpaidDeductions;
         double netPay = grossIncome - totalDeductions;
 
