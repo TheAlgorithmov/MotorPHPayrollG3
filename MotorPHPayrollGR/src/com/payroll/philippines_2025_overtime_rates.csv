@@ -1,0 +1,7 @@
+Overtime Type,Rate Multiplier,Description
+Regular Overtime,125%,Work beyond 8 hours on a regular workday.
+Rest Day Overtime,130%,Work beyond 8 hours on a scheduled rest day.
+Special Holiday Overtime,130%,Work beyond 8 hours on a special (non-working) holiday.
+Regular Holiday Overtime,200%,Work beyond 8 hours on a regular holiday.
+Rest Day & Special Holiday Overtime,150%,Work beyond 8 hours on a rest day that is also a special holiday.
+Rest Day & Regular Holiday Overtime,260%,Work beyond 8 hours on a rest day that is also a regular holiday.
