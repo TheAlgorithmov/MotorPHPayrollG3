@@ -15,7 +15,7 @@ public class GovernmentDeductions {
         Scanner input = new Scanner(System.in);
 
         // Ask for employee's salary
-        System.out.print("Enter your monthly salary: PHP ");
+        System.out.print("Kindly enter your monthly salary: PHP ");
         double salary = input.nextDouble();
 
         // Compute SSS Contribution
@@ -57,7 +57,7 @@ public class GovernmentDeductions {
         System.out.printf("Income Tax: %.2f%n", incomeTax);
         System.out.println("-----------------------------");
         System.out.printf("Total Deductions: %.2f%n", totalDeductions);
-        System.out.printf("Net Salary After Deductions: PHP %.2f%n", netSalary);
+        System.out.printf("Net Salary: PHP %.2f%n", netSalary);
 
         input.close();
     }
