@@ -14,11 +14,11 @@ public class PagibigContribution {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
-        // Ask for employee's salary
-        System.out.print("Enter your monthly salary: ");
+        // Enter your Basic Salary
+        System.out.print("Kindly enter your Basic salary: PHP ");
         double salary = input.nextDouble();
 
-        // Pag-IBIG contribution computation
+        // Pag-IBIG contribution
         double employeeShare;
         double employerShare;
         
