@@ -49,7 +49,7 @@ public class GovernmentDeductions {
         double totalDeductions = sssEmployeeShare + pagibigEmployeeShare + philhealthEmployeeShare + incomeTax;
         double netSalary = salary - totalDeductions;
 
-        // Display Results
+        // Total Salary and Deductions Breakdown
         System.out.println("\nGovernment Deductions Breakdown:");
         System.out.printf("SSS Employee Share: %.2f | Employer Share: %.2f%n", sssEmployeeShare, sssEmployerShare);
         System.out.printf("Pag-IBIG Employee Share: %.2f | Employer Share: %.2f%n", pagibigEmployeeShare, pagibigEmployerShare);
