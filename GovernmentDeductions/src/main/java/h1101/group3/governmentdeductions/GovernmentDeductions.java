@@ -14,30 +14,30 @@ public class GovernmentDeductions {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
-        // Ask for employee's salary
-        System.out.print("Kindly enter your monthly salary: PHP ");
+        // Enter your Basic Salary
+        System.out.print("Kindly enter your Basic salary: PHP ");
         double salary = input.nextDouble();
 
-        // Compute SSS Contribution
+        // SSS Contribution
         double sssEmployeeShare = salary * 0.045; // 4.5% of salary
         double sssEmployerShare = salary * 0.09;  // 9% of salary
 
         if (sssEmployeeShare > 900) sssEmployeeShare = 900; // Max cap
         if (sssEmployerShare > 1800) sssEmployerShare = 1800;
 
-        // Compute Pag-IBIG Contribution
+        // Pag-IBIG Contribution
         double pagibigEmployeeShare = (salary <= 1500) ? salary * 0.01 : salary * 0.02;
         double pagibigEmployerShare = salary * 0.02;
 
         if (pagibigEmployeeShare > 100) pagibigEmployeeShare = 100; // Max cap
         if (pagibigEmployerShare > 100) pagibigEmployerShare = 100;
 
-        // Compute PhilHealth Contribution (Shared 50/50)
+        // PhilHealth Contribution (Shared 50/50)
         double philhealthTotal = salary * 0.05; // 5% of salary
         double philhealthEmployeeShare = philhealthTotal / 2;
         double philhealthEmployerShare = philhealthTotal / 2;
 
-        // Compute Income Tax (Simplified Bracket)
+        // Compute Income Tax
         double incomeTax = 0;
         if (salary > 25000) {
             incomeTax = salary * 0.20; // 20% tax for simplicity
